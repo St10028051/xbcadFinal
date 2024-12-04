@@ -47,7 +47,7 @@ Welcome to the **Action Swim Academy Web Application** repository! This project 
 ## **Technologies Used**
 
 - **Frontend**: React.js, JavaScript, HTML, CSS
-- **Backend**: ASP.NET (planned for future integration)
+- **Backend**: ASP.NET (planned for future integration) & MongoDB for prototype testing (Issues with Azure)
 - **Database**: SQL Server (planned for deployment)
 - **Other Tools**:
   - Visual Studio Code
