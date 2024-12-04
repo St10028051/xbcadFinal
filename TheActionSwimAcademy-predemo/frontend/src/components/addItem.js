@@ -1,44 +1,83 @@
-// components/AddItem.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css'; // Ensure your custom styles are imported
+import { useNavigate } from 'react-router-dom';
 
-const AddItem = () => {
-    // Form state with description and stock status
+const AddItem = ({ onAddProduct, products = [], onEditProduct }) => {
     const [form, setForm] = useState({
         title: '',
         itemNumber: '',
         price: '',
         size: '',
         quantity: '',
-        description: '', // New description field
-        stockStatus: 'inStock' // New field for stock status
+        description: '',
+        stockStatus: 'inStock',
     });
 
-    const [image, setImage] = useState(null); // State for uploaded image
+    const [image, setImage] = useState(null);
+    const [imageUrl, setImageUrl] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState('');
+    const navigate = useNavigate();
 
     // Update form fields
     const updateForm = (field, value) => {
-        setForm((prevForm) => ({
-            ...prevForm,
-            [field]: value
-        }));
+        setForm((prevForm) => ({ ...prevForm, [field]: value }));
     };
 
-    // Handle image upload
+    // Handle image change
     const onImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             setImage(e.target.files[0]);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImageUrl(reader.result);
+            };
+            reader.readAsDataURL(e.target.files[0]);
         }
     };
 
-    // Handle form submission
-    const onSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form Data:", form);
-        console.log("Uploaded Image:", image);
+    // Handle selection of product to edit
+    const handleProductSelect = (e) => {
+        const productId = e.target.value;
+        setSelectedProduct(productId);
 
-        // Reset form fields and image after submission
+        const selectedProduct = products.find((product) => product.id === parseInt(productId));
+        if (selectedProduct) {
+            setForm({
+                title: selectedProduct.title,
+                itemNumber: selectedProduct.itemNumber,
+                price: selectedProduct.price,
+                size: selectedProduct.size,
+                quantity: selectedProduct.quantity,
+                description: selectedProduct.description,
+                stockStatus: selectedProduct.stockStatus,
+            });
+            setImageUrl(selectedProduct.imageUrl);
+        }
+    };
+
+    // Submit handler
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        const productData = {
+            ...form,
+            imageUrl: imageUrl || 'https://via.placeholder.com/150', // Default image URL if not provided
+        };
+
+        // If editing, call the edit function, else add new product
+        if (selectedProduct) {
+            if (onEditProduct) {
+                onEditProduct(productData, selectedProduct);
+            }
+        } else if (onAddProduct) {
+            onAddProduct(productData);
+        } else {
+            console.error("onAddProduct or onEditProduct is not defined.");
+        }
+
+        // Reset form after submission
         setForm({
             title: '',
             itemNumber: '',
@@ -46,16 +85,42 @@ const AddItem = () => {
             size: '',
             quantity: '',
             description: '',
-            stockStatus: 'inStock' // Reset stock status
+            stockStatus: 'inStock',
         });
         setImage(null);
+        setImageUrl('');
+        setIsLoading(false);
+
+        // Redirect to shop page
+        navigate('/shop');
     };
 
     return (
         <div className="form-container container mt-5">
-            <h3 className="text-center">Add New Item</h3>
+            <h3 className="text-center">{selectedProduct ? 'Edit Product' : 'Add New Item'}</h3>
             <form onSubmit={onSubmit}>
-                {/* Title input */}
+                <div className="form-group mb-4">
+                    <label htmlFor="productSelect">Select Product to Edit</label>
+                    <select
+                        className="form-control"
+                        id="productSelect"
+                        value={selectedProduct || ''}
+                        onChange={handleProductSelect}
+                    >
+                        <option value="">-- Select a Product --</option>
+                        {/* Loop through products and show numbers 1 to 6 */}
+                        {[...Array(6)].map((_, index) => {
+                            const productId = index + 1; // Numbering from 1 to 6
+                            return (
+                                <option key={productId} value={productId}>
+                                    Product {productId}
+                                </option>
+                            );
+                        })}
+                    </select>
+                </div>
+
+                {/* Form fields for title, itemNumber, description, etc. */}
                 <div className="form-group mb-4">
                     <label htmlFor="title">Title</label>
                     <input
@@ -68,7 +133,6 @@ const AddItem = () => {
                     />
                 </div>
 
-                {/* Item Number input */}
                 <div className="form-group mb-4">
                     <label htmlFor="itemNumber">Item Number</label>
                     <input
@@ -81,7 +145,6 @@ const AddItem = () => {
                     />
                 </div>
 
-                {/* Description input */}
                 <div className="form-group mb-4">
                     <label htmlFor="description">Description</label>
                     <textarea
@@ -94,7 +157,6 @@ const AddItem = () => {
                     ></textarea>
                 </div>
 
-                {/* Size, Price, Quantity in a row */}
                 <div className="form-row mb-4">
                     <div className="col-md-4">
                         <label htmlFor="size">Size</label>
@@ -131,7 +193,6 @@ const AddItem = () => {
                     </div>
                 </div>
 
-                {/* Stock Status Dropdown */}
                 <div className="form-group mb-4">
                     <label htmlFor="stockStatus">Stock Status</label>
                     <select
@@ -146,7 +207,6 @@ const AddItem = () => {
                     </select>
                 </div>
 
-                {/* Image Upload */}
                 <div className="form-group mb-4">
                     <label htmlFor="imageUpload">Upload Image</label>
                     <input
@@ -155,16 +215,25 @@ const AddItem = () => {
                         id="imageUpload"
                         onChange={onImageChange}
                     />
+                    {imageUrl && (
+                        <div className="mt-3">
+                            <img
+                                src={imageUrl}
+                                alt="Image Preview"
+                                style={{ width: '200px', height: '150px', objectFit: 'cover' }}
+                            />
+                        </div>
+                    )}
                 </div>
 
-                {/* Submission Button */}
                 <div className="form-group text-center">
-                    <button 
-                        type="submit" 
-                        className="btn" 
+                    <button
+                        type="submit"
+                        className="btn"
                         style={{ backgroundColor: 'gold', color: 'white', border: 'none' }}
+                        disabled={isLoading}
                     >
-                        Add Item
+                        {isLoading ? 'Saving Item...' : selectedProduct ? 'Update Item' : 'Add Item'}
                     </button>
                 </div>
             </form>

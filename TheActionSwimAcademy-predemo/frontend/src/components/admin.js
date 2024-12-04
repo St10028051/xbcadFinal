@@ -6,8 +6,7 @@ const AdminForm = () => {
     const [form, setForm] = useState({
         username: '',
         email: '',
-        password: '',
-        address: ''
+        password: ''
     });
 
     const navigate = useNavigate();

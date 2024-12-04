@@ -44,7 +44,7 @@ const products = [
 const Shop = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOption, setSortOption] = useState('popular');
-    const navigate = useNavigate(); // Initialize the useNavigate hook
+    const navigate = useNavigate(); 
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
