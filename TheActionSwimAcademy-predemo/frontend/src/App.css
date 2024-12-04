@@ -1,0 +1,114 @@
+/* App.css */
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Register.css */
+.btn-gold {
+  background-color: hsl(54, 73%, 60%); /* Set the background color to gold */
+  color: white; /* Optional: Set text color to black for better contrast */
+  border: none; /* Optional: Remove border */
+  padding: 10px 20px; /* Optional: Add some padding */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  font-weight: bold; /* Optional: Make the text bold */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.btn-gold:hover {
+  background-color: darkgoldenrod; /* Darker gold on hover */
+  color: white; /* Change text color on hover */
+}
+
+/* Form container styles */
+.form-container {
+  max-width: 400px; /* Set a max width for the form box */
+  margin: 50px auto; /* Center horizontally and give some top margin */
+  padding: 20px; /* Add some padding inside the box */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: white; /* Background color for the box */
+}
+
+.form-group {
+  margin-bottom: 15px; /* Space between form groups */
+}
+
+.button-container {
+  display: flex;          /* Enable flexbox */
+  justify-content: center; /* Center the button horizontally */
+  width: 100%;           /* Ensure the container takes full width */
+}
+.grey-bar {
+  height: 30px; /* Or adjust as needed */
+  background-color: rgb(115, 110, 110); /* Or use a specific hex color code */
+}
+
+.btn-gold {
+  color: white; /* Text color */
+  background-color: gold; /* Gold background */
+  padding: 10px 15px; /* Padding for buttons */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Optional: rounded corners */
+  text-decoration: none; /* Remove underline */
+  margin: 5px; /* Optional: margin for spacing */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Optional hover effect if you want */
+.btn-gold:hover {
+  background-color: #FFD700; /* Slightly lighter gold on hover */
+}
+/* News.css */
+.small-card {
+  max-height: 200px; /* Adjust this value for desired height */
+  overflow: hidden; /* Hide overflow content */
+}
+
+.card-body {
+  padding: 10px; /* Reduce padding for a more compact look */
+}
+
+.card-title {
+  font-size: 1.2rem; /* Adjust title font size */
+}
+
+.card-text {
+  font-size: 0.9rem; /* Adjust content font size */
+}
+

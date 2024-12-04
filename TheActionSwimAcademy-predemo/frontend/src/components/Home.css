@@ -1,0 +1,140 @@
+/* Home.css */
+.home-page {
+    font-family: "Arial", sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.hero-section {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #ffcc00; /* Bright yellow hero background */
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.hero-logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+    animation: scaleIn 1.5s ease-in-out;
+}
+
+.hero-title {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero-description {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.hero-button {
+    background-color: #fff;
+    color: #ffcc00;
+    border: 2px solid #ffcc00;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-button:hover {
+    background-color: #ffcc00;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.about-section,
+.achievements-section,
+.contact-section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.about-image,
+.achievements-image {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.achievements-section .achievements-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.achievements-description {
+    max-width: 400px;
+}
+
+.achievements-button {
+    margin-top: 20px;
+    background-color: #ffcc00;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.achievements-button:hover {
+    background-color: #e6b800;
+    transform: scale(1.1);
+}
+
+.contact-button {
+    background-color: #ffcc00;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.contact-button:hover {
+    background-color: #e6b800;
+    transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
